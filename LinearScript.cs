@@ -13,8 +13,7 @@ namespace backup
 
         [TestInitialize]
         public void Setup() {
-            this.driver = new ChromeDriver(ChromeDriverService.CreateDefaultService("C:\\temp\\drivers"), new ChromeOptions(), TimeSpan.FromSeconds(3));
-            this.driver.Navigate().GoToUrl(TheInternetCheckboxUrl);
+            this.driver = new ChromeDriver(ChromeDriverService.CreateDefaultService("C:\\temp\\drivers"), new ChromeOptions(), TimeSpan.FromSeconds(15));
             this.driver.Manage().Window.Maximize();
         }
 
@@ -27,7 +26,9 @@ namespace backup
 
         [TestMethod]
         public void ValidLogin()
-        {    
+        {
+            this.driver.Navigate().GoToUrl(SwagLabsUrl);
+
             var userNameInput = this.driver.FindElement(By.Id("user-name"));
             var passwordInput = this.driver.FindElement(By.Name("password"));
             var submitBtn = this.driver.FindElement(By.XPath("//*[@type='submit']"));
@@ -41,7 +42,10 @@ namespace backup
         }
 
         [TestMethod]
-        public void InvalidLogin() {
+        public void InvalidLogin() 
+        {
+            this.driver.Navigate().GoToUrl(SwagLabsUrl);
+
             var userNameInput = this.driver.FindElement(By.Id("user-name"));
             var passwordInput = this.driver.FindElement(By.Name("password"));
             var submitBtn = this.driver.FindElement(By.XPath("//*[@type='submit']"));
@@ -60,6 +64,8 @@ namespace backup
         [TestMethod]
         public void SlowLogin()
         {
+            this.driver.Navigate().GoToUrl(SwagLabsUrl);
+
             var userNameInput = this.driver.FindElement(By.Id("user-name"));
             var passwordInput = this.driver.FindElement(By.Name("password"));
             var submitBtn = this.driver.FindElement(By.XPath("//*[@type='submit']"));
@@ -69,13 +75,15 @@ namespace backup
 
             submitBtn.Click();
 
-            // Modify the commandTimeout value from 3 to 10 seconds at driver initialization, line 16
+            // Modify the commandTimeout value from 3 to 15 seconds at driver initialization, line 16
             Assert.AreEqual("https://www.saucedemo.com/v1/inventory.html", driver.Url);
         }
 
         [TestMethod]
         public void CheckAmountOfProducts()
         {
+            this.driver.Navigate().GoToUrl(SwagLabsUrl);
+
             var userNameInput = this.driver.FindElement(By.Id("user-name"));
             var passwordInput = this.driver.FindElement(By.Name("password"));
             var submitBtn = this.driver.FindElement(By.XPath("//*[@type='submit']"));
@@ -93,6 +101,9 @@ namespace backup
         [TestMethod]
         public void CheckUsersBy50Due() 
         {
+            this.driver.Navigate().GoToUrl(TheInternetTablesUrl);
+
+            Thread.Sleep(2000); //BAD PRACTICE
             var table = this.driver.FindElement(By.Id("table1"));
             var headers = table.FindElements(By.XPath(".//thead/tr/th"));
             var rows = table.FindElements(By.XPath("./tbody/tr"));
@@ -133,8 +144,11 @@ namespace backup
         [TestMethod]
         public void CheckTableCanBeSorted()
         {
+            this.driver.Navigate().GoToUrl(TheInternetTablesUrl);
+
+            Thread.Sleep(2000); //BAD PRACTICE
             var table = this.driver.FindElement(By.Id("table1"));
-            var headers = table.FindElements(By.XPath(".//thead/tr/th"));
+            var headers = table.FindElements(By.XPath("./thead/tr/th"));
             var rows = table.FindElements(By.XPath("./tbody/tr"));
 
             headers.Where(x => x.Text == "First Name").FirstOrDefault().Click();
@@ -151,6 +165,9 @@ namespace backup
         [TestMethod]
         public void ClickAndVerifyCheckbox()
         {
+            this.driver.Navigate().GoToUrl(TheInternetCheckboxUrl);
+
+            Thread.Sleep(2000); //BAD PRACTICE
             var checkBoxList = this.driver.FindElements(By.XPath("//*[@type='checkbox']")).ToList();
 
             checkBoxList.ForEach(checkbox => checkbox.Click());
