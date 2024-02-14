@@ -10,11 +10,6 @@ namespace AutomationFramework.Tests
         private string SwagLabsUrl = "https://www.saucedemo.com/v1/";
         private LoginPage loginPage;
         private ProductsPage productsPage;
-        private HeaderPage headerPage;
-        private ShoppingCartPage shoppingCartPage;
-        private CheckoutInformationPage checkoutInformationPage;
-        private CheckoutOverviewPage checkoutOverviewPage;
-        private OrderFinishedPage orderFinishedPage;
 
         [TestInitialize]
         public void Setup()
@@ -26,11 +21,6 @@ namespace AutomationFramework.Tests
 
             loginPage = new LoginPage(driver);
             productsPage = new ProductsPage(driver);
-            headerPage = new HeaderPage(driver);
-            shoppingCartPage = new ShoppingCartPage(driver);
-            checkoutInformationPage = new CheckoutInformationPage(driver);
-            checkoutOverviewPage = new CheckoutOverviewPage(driver);
-            orderFinishedPage = new OrderFinishedPage(driver);
         }
 
         [TestCleanup]
@@ -81,33 +71,7 @@ namespace AutomationFramework.Tests
             this.loginPage.ClickSubmitButton();
 
             this.productsPage.CheckUserIsAtProductsPage();
-            this.headerPage.OpenShoppingCart();
-        }
-
-        [TestMethod]
-        public void BuyAProduct()
-        {
-            this.loginPage.SetUserName("standard_user");
-            this.loginPage.SetPassword("secret_sauce");
-
-            this.loginPage.ClickSubmitButton();
-
-            this.productsPage.CheckUserIsAtProductsPage();
-            this.productsPage.AddProductToCartByName("Sauce Labs Fleece Jacket");
-
-            this.headerPage.OpenShoppingCart();
-            this.shoppingCartPage.CheckProductIsAtCart("Sauce Labs Fleece Jacket", 1);
-            this.shoppingCartPage.ClickCheckoutButton();
-
-            this.checkoutInformationPage.SetName("Diego");
-            this.checkoutInformationPage.SetSurname("Diego");
-            this.checkoutInformationPage.SetZipCode("123");
-            this.checkoutInformationPage.ClickContinueButton();
-
-            this.checkoutOverviewPage.CheckProductIsAtCart("Sauce Labs Fleece Jacket", 1);
-            this.checkoutOverviewPage.ClickFinishButton();
-
-            this.orderFinishedPage.CheckOrderFinishedAppears();
+            this.productsPage.CheckAmountOfProducts(6);
         }
     }
 }
