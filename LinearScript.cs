@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace backup
+namespace LinearScript
 {
     [TestClass]
     public class LinearScript
