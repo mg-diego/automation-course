@@ -4,7 +4,6 @@ namespace AutomationFramework.POM.Swaglabs
 {
     public class LoginPage : PageBase
     {
-        private string LoginUrl = "https://www.saucedemo.com/v1/";
 
         private By UserNameInput = By.Id("user-name");
         private By PasswordInput = By.Name("password");
@@ -32,12 +31,16 @@ namespace AutomationFramework.POM.Swaglabs
 
         public void CheckUserIsAtLoginPage()
         {
-            Assert.AreEqual(LoginUrl, Driver.Url);
+            ElementIsPresent(UserNameInput);
+            ElementIsPresent(PasswordInput);
+            ElementIsPresent(SubmitBtn);
         }
 
         public void CheckUserIsNotAtLoginPage() 
         {
-            Assert.AreNotEqual(LoginUrl, Driver.Url);
+            ElementIsNotPresent(UserNameInput);
+            ElementIsNotPresent(PasswordInput);
+            ElementIsNotPresent(SubmitBtn);
         }
 
         public void CheckErrorMessageText(string expectedText) 

@@ -1,6 +1,8 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using System.Threading;
 
 namespace AutomationFramework.POM
 {
@@ -52,7 +54,31 @@ namespace AutomationFramework.POM
         protected void CheckElementText(By elementLocator, string text)
         {
             var element = Driver.FindElement(elementLocator);
+            Actions actions = new Actions(Driver);
+            actions.MoveToElement(element);
+            actions.Perform();
             Assert.AreEqual(text, element.Text);
+        }
+
+
+        protected IWebElement ElementIsPresent(By elementLocator)
+        {
+            return ElementIsPresent(elementLocator, DefaultTimeout);
+        }
+        protected IWebElement ElementIsPresent(By elementLocator, TimeSpan timeout)
+        {
+            var wait = new WebDriverWait(Driver, timeout);
+            return wait.Until(ExpectedConditions.ElementExists(elementLocator));
+        }
+
+        protected void ElementIsNotPresent(By elementLocator)
+        {
+            ElementIsNotPresent(elementLocator, DefaultTimeout);
+        }
+        protected void ElementIsNotPresent(By elementLocator, TimeSpan timeout)
+        {
+            var wait = new WebDriverWait(Driver, timeout);
+            wait.Until(driver => driver.FindElements(elementLocator).Count == 0);
         }
     }
 }

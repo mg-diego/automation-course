@@ -7,7 +7,7 @@ namespace AutomationFramework.Tests
     public class SwaglabsTests
     {
         private WebdriverManager webDriverManager;
-        private string SwagLabsUrl = "https://www.saucedemo.com/v1/";
+        private string SwagLabsUrl = "https://www.saucedemo.com";
         private LoginPage loginPage;
         private ProductsPage productsPage;
         private HeaderPage headerPage;
@@ -20,7 +20,7 @@ namespace AutomationFramework.Tests
         public void Setup()
         {
             webDriverManager = new WebdriverManager();
-            webDriverManager.SetupDriver();
+            webDriverManager.SetupDriver("C:\\temp\\drivers");
             var driver = webDriverManager.GetDriver();
             driver.Navigate().GoToUrl(SwagLabsUrl);
 

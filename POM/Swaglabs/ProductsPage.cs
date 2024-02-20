@@ -4,8 +4,6 @@ namespace AutomationFramework.POM.Swaglabs
 {
     public class ProductsPage : PageBase
     {
-        private string LoginUrl = "https://www.saucedemo.com/v1/inventory.html";
-
         private By ProductImages = By.XPath("//img[@class='inventory_item_img']");
 
         private By ProductName = By.ClassName("inventory_item_name");
@@ -24,7 +22,10 @@ namespace AutomationFramework.POM.Swaglabs
 
         public void CheckUserIsAtProductsPage()
         {
-            Assert.AreEqual(LoginUrl, Driver.Url);
+            ElementIsPresent(ProductImages);
+            ElementIsPresent(ProductName);
+            ElementIsPresent(AddToCartBtn);
+
         }
 
         public void AddProductToCartByName(string productName)

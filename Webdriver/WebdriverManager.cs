@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.IO;
 
 namespace AutomationFramework.Webdriver
 {
@@ -7,10 +8,10 @@ namespace AutomationFramework.Webdriver
     {
         private IWebDriver driver;
 
-        public void SetupDriver()
+        public void SetupDriver(string driverPath)
         {
             this.driver = new ChromeDriver(
-                ChromeDriverService.CreateDefaultService("C:\\temp\\drivers"),
+                ChromeDriverService.CreateDefaultService(driverPath),
                 new ChromeOptions(),
                 TimeSpan.FromSeconds(15));
             this.driver.Manage().Window.Maximize();
@@ -25,6 +26,13 @@ namespace AutomationFramework.Webdriver
         public IWebDriver GetDriver() 
         {
             return this.driver;
+        }
+
+        public void CollectEvidence(string destinationPath, string evidenceName)
+        {
+            DirectoryInfo di = Directory.CreateDirectory(destinationPath);
+            var ss = ((ITakesScreenshot)driver).GetScreenshot();
+            ss.SaveAsFile(Path.Combine(destinationPath, $"{evidenceName}.png"));
         }
     }
 }
