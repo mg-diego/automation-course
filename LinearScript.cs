@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace backup
+namespace LinearScript
 {
     [TestClass]
     public class LinearScript
@@ -96,6 +96,60 @@ namespace backup
             var products = this.driver.FindElements(By.XPath("//img[@class='inventory_item_img']"));
 
             Assert.AreEqual(6, products.Count);
+        }
+
+        [TestMethod]
+        public void BuyAProduct()
+        {
+            var productName = "Sauce Labs Fleece Jacket";
+            var expectedQuantity = 1;
+
+            this.driver.Navigate().GoToUrl(SwagLabsUrl);
+
+            // Login
+            var userNameInput = this.driver.FindElement(By.Id("user-name"));
+            var passwordInput = this.driver.FindElement(By.Name("password"));
+            var submitBtn = this.driver.FindElement(By.XPath("//*[@type='submit']"));
+            userNameInput.SendKeys("standard_user");
+            passwordInput.SendKeys("secret_sauce");
+            submitBtn.Click();
+
+            // Select product
+            var products = this.driver.FindElements(By.ClassName("inventory_item_name"));
+            var productIndex = products.IndexOf(products.FirstOrDefault(x => x.Text == productName));
+            var addToCartBtnList = this.driver.FindElements(By.ClassName("btn_inventory"));
+            addToCartBtnList[productIndex].Click();
+
+            // Navigate to cart and check product
+            this.driver.FindElement(By.XPath("//*[@data-icon='shopping-cart']")).Click();
+            var productsAtCart = this.driver.FindElements(By.ClassName("inventory_item_name"));
+            var cartProductIndex = productsAtCart.IndexOf(productsAtCart.FirstOrDefault(x => x.Text == productName));
+            var productQuantityList = this.driver.FindElements(By.ClassName("cart_quantity"));
+            Assert.AreEqual(expectedQuantity.ToString(), productQuantityList[cartProductIndex].Text);
+            this.driver.FindElement(By.ClassName("checkout_button")).Click();        
+
+            // Checkout: Personal Info
+            this.driver.FindElement(By.Id("first-name")).SendKeys("Diego");
+            this.driver.FindElement(By.Id("last-name")).SendKeys("Martinez");
+            this.driver.FindElement(By.Id("postal-code")).SendKeys("123");
+            this.driver.FindElement(By.ClassName("cart_button")).Click();
+
+            // Checkout: Overview
+            var overviewProducts = this.driver.FindElements(By.ClassName("inventory_item_name"));
+            var overviewProductIndex = overviewProducts.IndexOf(overviewProducts.FirstOrDefault(x => x.Text == productName));
+            var overviewProductQuantityList = this.driver.FindElements(By.ClassName("summary_quantity"));
+            Assert.AreEqual(expectedQuantity.ToString(), overviewProductQuantityList[overviewProductIndex].Text);
+            this.driver.FindElement(By.ClassName("cart_button")).Click();
+
+            // Order finished
+            Assert.AreEqual(
+                "THANK YOU FOR YOUR ORDER",
+                this.driver.FindElement(By.ClassName("complete-header")).Text
+            );
+            Assert.AreEqual(
+                "Your order has been dispatched, and will arrive just as fast as the pony can get there!",
+                this.driver.FindElement(By.ClassName("complete-text")).Text
+            );
         }
 
         [TestMethod]

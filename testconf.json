@@ -1,0 +1,5 @@
+{
+  "BaseURL": "https://www.saucedemo.com/v1",
+  "DriverPath": "C:\\temp\\drivers",
+  "EvidencePath": "C:\\temp\\Evidences"
+}

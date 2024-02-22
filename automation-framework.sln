@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "automation-framework", "automation-framework.csproj", "{B2A9DA59-68C6-43DC-A6DD-6A1A8EBE2D46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationFramework", "AutomationFramework.csproj", "{B2A9DA59-68C6-43DC-A6DD-6A1A8EBE2D46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
