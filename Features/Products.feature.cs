@@ -175,6 +175,67 @@ await this.FeatureBackgroundAsync();
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Buy a product")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Products Interactions")]
+        public async System.Threading.Tasks.Task BuyAProduct()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            Reqnroll.ScenarioInfo scenarioInfo = new Reqnroll.ScenarioInfo("Buy a product", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 24
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 5
+await this.FeatureBackgroundAsync();
+#line hidden
+#line 25
+ await testRunner.WhenAsync("the user adds \"Sauce Labs Onesie\" to the cart", ((string)(null)), ((Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 26
+ await testRunner.ThenAsync("The number of cart items is 1", ((string)(null)), ((Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 27
+ await testRunner.WhenAsync("the user opens the cart", ((string)(null)), ((Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 28
+ await testRunner.ThenAsync("the \"Sauce Labs Onesie\" product has amount 1 in the shopping cart", ((string)(null)), ((Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 29
+ await testRunner.AndAsync("the user clicks in the Checkout button", ((string)(null)), ((Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 30
+ await testRunner.WhenAsync("the user sets \'Diego\' as name in Checkout Information", ((string)(null)), ((Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 31
+ await testRunner.AndAsync("the user sets \'Diego\' as surname in Checkout Information", ((string)(null)), ((Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 32
+ await testRunner.AndAsync("the user sets \'123\' as zipcode in Checkout Information", ((string)(null)), ((Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 33
+ await testRunner.AndAsync("the user clicks in Continue button", ((string)(null)), ((Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 34
+ await testRunner.ThenAsync("the \"Sauce Labs Onesie\" product has amount 1 in the checkout overview", ((string)(null)), ((Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 35
+ await testRunner.WhenAsync("the user clicks in the Finish button", ((string)(null)), ((Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 36
+ await testRunner.ThenAsync("the order finished message appears", ((string)(null)), ((Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore

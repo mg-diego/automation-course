@@ -1,4 +1,3 @@
-using System;
 using AutomationFramework.POM.Swaglabs;
 using AutomationFramework.Webdriver;
 using Reqnroll;
@@ -37,6 +36,18 @@ namespace AutomationFramework.Steps
             {
                 productsPage.AddProductToCartByName(row[product]);
             }
+        }
+
+        [When("the user opens the cart")]
+        public void WhenTheUserOpensTheCart()
+        {
+            headerPage.OpenShoppingCart();
+        }
+
+        [Then("the {string} product has amount 1 in the shopping cart")]
+        public void TheProductHasAmountInShoppingCart(int NumberOfItems)
+        {
+            headerPage.CheckNumberOfItemsInCart(NumberOfItems);
         }
 
     }

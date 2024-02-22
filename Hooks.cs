@@ -12,11 +12,14 @@ namespace AutomationFramework
         private string configPath = "./testconf.json";
         private Config config;
         int stepNumber;
+        private string scenarioEvidencesFolder;
 
         [BeforeScenario]
-        public void BeforeScenario(WebdriverManager webDriverManager, ConfigurationManager configManager)
-        {
+        public void BeforeScenario(WebdriverManager webDriverManager, ConfigurationManager configManager, ScenarioContext scenarioContext)
+        {           
             config = configManager.LoadConfiguration(configPath);
+            scenarioEvidencesFolder = Path.Combine(config.EvidencePath, DateTime.Now.ToString("yyyy-MM-dd HH_mm_ss") + " " + scenarioContext.ScenarioInfo.Title);
+            DirectoryInfo di = Directory.CreateDirectory(scenarioEvidencesFolder);
             webDriverManager.SetupDriver(config.DriverPath);
             var driver = webDriverManager.GetDriver();
             driver.Navigate().GoToUrl(config.BaseURL);
@@ -32,8 +35,12 @@ namespace AutomationFramework
         [AfterStep]
         public void AfterStep(WebdriverManager webDriverManager, ScenarioContext scenarioContext)
         {
-            var evidenceName = $"{stepNumber} {scenarioContext.ScenarioInfo.Title}";
-            webDriverManager.CollectEvidence(config.EvidencePath, evidenceName);
+            var evidenceName = $"{stepNumber} - {scenarioContext.StepContext.StepInfo.StepDefinitionType} {scenarioContext.StepContext.StepInfo.Text}";
+            foreach (var c in Path.GetInvalidFileNameChars())
+            {
+                evidenceName = evidenceName.Replace(c.ToString(), string.Empty);
+            }
+            webDriverManager.CollectEvidence(scenarioEvidencesFolder, evidenceName);
             stepNumber++;
         }
     }

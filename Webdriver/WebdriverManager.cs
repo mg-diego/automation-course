@@ -30,7 +30,7 @@ namespace AutomationFramework.Webdriver
 
         public void CollectEvidence(string destinationPath, string evidenceName)
         {
-            DirectoryInfo di = Directory.CreateDirectory(destinationPath);
+           
             var ss = ((ITakesScreenshot)driver).GetScreenshot();
             ss.SaveAsFile(Path.Combine(destinationPath, $"{evidenceName}.png"));
         }
