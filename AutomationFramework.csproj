@@ -25,12 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Features\Products.feature.cs">
-      <DependentUpon>Products.feature</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="testconf.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
