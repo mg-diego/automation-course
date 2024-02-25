@@ -17,7 +17,7 @@ namespace AutomationFramework.Steps
             productsPage = new ProductsPage(driver);
             headerPage = new HeaderPage(driver);
         }
-        [When("the user adds {string} to the cart")]
+        [StepDefinition("the user adds {string} to the cart")]
         public void WhenTheUserAddToTheCart(string productName)
         {
             productsPage.AddProductToCartByName(productName);

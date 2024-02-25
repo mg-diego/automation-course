@@ -5,7 +5,7 @@ namespace AutomationFramework.POM.Swaglabs
     public class CheckoutOverviewPage : PageBase
     {
         private By CartProductName = By.ClassName("inventory_item_name");
-        private By CartProductQuantity = By.ClassName("summary_quantity");
+        private By CartProductQuantity = By.ClassName("cart_quantity");
         private By FinishBtn = By.ClassName("cart_button");
 
         public CheckoutOverviewPage(IWebDriver driver) : base(driver)

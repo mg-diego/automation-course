@@ -14,7 +14,7 @@ namespace AutomationFramework.POM.Swaglabs
 
         public void CheckOrderFinishedAppears()
         {
-            CheckElementText(OrderFinishedHeader, "THANK YOU FOR YOUR ORDER");
+            CheckElementText(OrderFinishedHeader, "Thank you for your order!");
             CheckElementText(OrderFinishedText, "Your order has been dispatched, and will arrive just as fast as the pony can get there!");
         }
     }

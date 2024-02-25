@@ -48,5 +48,15 @@ namespace AutomationFramework.Steps
             this.loginPage.CheckErrorMessageText(multilineText);
         }
 
+        [Given("the user is logged in with {string} and {string}")]
+        public void GivenTheUserIsLoggedInWithAnd(string username, string password)
+        {
+            this.loginPage.SetUserName(username);
+            this.loginPage.SetPassword(password);
+            this.loginPage.ClickSubmitButton();
+
+            this.loginPage.CheckUserIsNotAtLoginPage();
+        }
+
     }
 }

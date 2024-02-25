@@ -20,7 +20,7 @@ namespace AutomationFramework.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "1.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class ProductsInteractionsFeature
+    public partial class BuyingProductsOnTheWebsiteFeature
     {
         
         private static Reqnroll.ITestRunner testRunner;
@@ -29,7 +29,7 @@ namespace AutomationFramework.Features
         
         private static string[] featureTags = ((string[])(null));
         
-#line 1 "Products.feature"
+#line 1 "Buying.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
@@ -48,7 +48,7 @@ namespace AutomationFramework.Features
         public static async System.Threading.Tasks.Task FeatureSetupAsync(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = Reqnroll.TestRunnerManager.GetTestRunnerForAssembly(null, System.Threading.Thread.CurrentThread.ManagedThreadId.ToString());
-            Reqnroll.FeatureInfo featureInfo = new Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Products Interactions", "A short summary of the feature", ProgrammingLanguage.CSharp, featureTags);
+            Reqnroll.FeatureInfo featureInfo = new Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Buying products on the website", "A short summary of the feature", ProgrammingLanguage.CSharp, featureTags);
             await testRunner.OnFeatureStartAsync(featureInfo);
         }
         
@@ -63,9 +63,9 @@ namespace AutomationFramework.Features
         public async System.Threading.Tasks.Task TestInitializeAsync()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "Products Interactions")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "Buying products on the website")))
             {
-                await global::AutomationFramework.Features.ProductsInteractionsFeature.FeatureSetupAsync(null);
+                await global::AutomationFramework.Features.BuyingProductsOnTheWebsiteFeature.FeatureSetupAsync(null);
             }
         }
         
@@ -91,89 +91,64 @@ namespace AutomationFramework.Features
             await testRunner.CollectScenarioErrorsAsync();
         }
         
-        public virtual async System.Threading.Tasks.Task FeatureBackgroundAsync()
+        public virtual async System.Threading.Tasks.Task BuyAProduct(string product, string qty, string[] exampleTags)
         {
-#line 5
-#line hidden
+            string[] @__tags = new string[] {
+                    "tag1"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("product", product);
+            argumentsOfScenario.Add("qty", qty);
+            Reqnroll.ScenarioInfo scenarioInfo = new Reqnroll.ScenarioInfo("Buy a product", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
- await testRunner.GivenAsync("the user enters username \"standard_user\"", ((string)(null)), ((Reqnroll.Table)(null)), "Given ");
+this.ScenarioInitialize(scenarioInfo);
 #line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
 #line 7
- await testRunner.AndAsync("the user enters password \"secret_sauce\"", ((string)(null)), ((Reqnroll.Table)(null)), "And ");
+ await testRunner.GivenAsync("the user is logged in with \"standard_user\" and \"secret_sauce\"", ((string)(null)), ((Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 8
- await testRunner.AndAsync("the user submit a login action", ((string)(null)), ((Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync(string.Format("the user adds \"{0}\" to the cart", product), ((string)(null)), ((Reqnroll.Table)(null)), "And ");
 #line hidden
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Cart show the number of products added")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Products Interactions")]
-        public async System.Threading.Tasks.Task CartShowTheNumberOfProductsAdded()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            Reqnroll.ScenarioInfo scenarioInfo = new Reqnroll.ScenarioInfo("Cart show the number of products added", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 9
+ await testRunner.WhenAsync(string.Format("the user confirms the \"{0}\"  has {1} items", product, qty), ((string)(null)), ((Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 10
+ await testRunner.AndAsync("the user continues his purchase with first name \"user\", last name \"good\" and post" +
+                        "al code \"1234\"", ((string)(null)), ((Reqnroll.Table)(null)), "And ");
+#line hidden
 #line 11
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 5
-await this.FeatureBackgroundAsync();
+ await testRunner.AndAsync(string.Format("the user reviews the \"{0}\"  has {1} items", product, qty), ((string)(null)), ((Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 12
- await testRunner.WhenAsync("the user adds \"Sauce Labs Onesie\" to the cart", ((string)(null)), ((Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 13
- await testRunner.ThenAsync("The number of cart items is 1", ((string)(null)), ((Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync("the system confirms the successful purchase", ((string)(null)), ((Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Cart counter increase with multiple products")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Products Interactions")]
-        public async System.Threading.Tasks.Task CartCounterIncreaseWithMultipleProducts()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Buy a product: Sauce Labs Fleece Jacket")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Buying products on the website")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("tag1")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Sauce Labs Fleece Jacket")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:product", "Sauce Labs Fleece Jacket")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:qty", "1")]
+        public async System.Threading.Tasks.Task BuyAProduct_SauceLabsFleeceJacket()
         {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            Reqnroll.ScenarioInfo scenarioInfo = new Reqnroll.ScenarioInfo("Cart counter increase with multiple products", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 16
-this.ScenarioInitialize(scenarioInfo);
+#line 6
+await this.BuyAProduct("Sauce Labs Fleece Jacket", "1", ((string[])(null)));
 #line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-#line 5
-await this.FeatureBackgroundAsync();
-#line hidden
-                Reqnroll.Table table2 = new Reqnroll.Table(new string[] {
-                            "product"});
-                table2.AddRow(new string[] {
-                            "Sauce Labs Onesie"});
-                table2.AddRow(new string[] {
-                            "Sauce Labs Backpack"});
-                table2.AddRow(new string[] {
-                            "Sauce Labs Fleece Jacket"});
-#line 17
- await testRunner.WhenAsync("the user adds multiple products to the cart", ((string)(null)), table2, "When ");
-#line hidden
-#line 22
- await testRunner.ThenAsync("The number of cart items is 3", ((string)(null)), ((Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
         }
     }
 }

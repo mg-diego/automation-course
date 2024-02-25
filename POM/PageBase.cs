@@ -57,6 +57,7 @@ namespace AutomationFramework.POM
             Actions actions = new Actions(Driver);
             actions.MoveToElement(element);
             actions.Perform();
+            var a = element.Text;
             Assert.AreEqual(text, element.Text);
         }
 
